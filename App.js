@@ -1,36 +1,39 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {Provider} from 'react-redux';
+import Main from './src/components/main';
+import Register from './src/components/register';
+import Tasks from './src/components/tasks';
+import Card from './src/components/Card'
+import AddNew from './src/components/AddNew'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const instructions = Platform.select({
   ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
   android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
 });
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome to React Native!</Text>
-      <Text style={styles.instructions}>To get started, edit App.js</Text>
-      <Text style={styles.instructions}>{instructions}</Text>
-    </View>
-  );
+const Stack = createStackNavigator();
+export default class App extends React.Component {
+	 
+	render(){
+		return (
+		<NavigationContainer>
+		
+     	 <Stack.Navigator initialRouteName="Main" screenOptions={{
+    headerShown: false
+  }}>
+        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Register" component={Register} />
+		<Stack.Screen name="Tasks" component={Tasks} />
+		<Stack.Screen name="AddNew" component={AddNew}/>
+		<Stack.Screen name="Card" component={Card} />
+      	</Stack.Navigator>
+    	</NavigationContainer>
+		)
+	}
+	
 }
+  
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
